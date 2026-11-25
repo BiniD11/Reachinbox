@@ -20,7 +20,19 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: config.frontendUrl,
+  origin: (origin, callback) => {
+    if (
+      !origin ||
+      origin === config.frontendUrl ||
+      origin.endsWith('.onrender.com') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')
+    ) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all during hosting setup
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '50mb' }));
@@ -71,7 +83,7 @@ async function bootstrap() {
   await initElasticsearch();
   await recoverStuckJobs();
   
-  app.listen(config.port, () => {
+  app.listen(config.port, '0.0.0.0', () => {
     logger.info(`Server running on port ${config.port}`);
     logger.info(`Bull Board: http://localhost:${config.port}/admin/queues`);
   });

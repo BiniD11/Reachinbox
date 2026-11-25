@@ -114,7 +114,46 @@ export async function searchEmails(userId: string, query: string, status?: strin
     
     return result.hits.hits.map((hit: any) => hit._source);
   } catch (err) {
-    logger.error('Elasticsearch search error:', err);
-    return [];
+    logger.warn('Elasticsearch search failed or not configured, using PostgreSQL fallback');
+    
+    // Fallback to PostgreSQL via Prisma for environments like Render without external Elasticsearch
+    try {
+      const where: any = {
+        job: { userId },
+      };
+      if (status) {
+        where.status = status;
+      }
+      if (query) {
+        where.OR = [
+          { subject: { contains: query, mode: 'insensitive' } },
+          { recipient: { contains: query, mode: 'insensitive' } },
+        ];
+      }
+      
+      const prismaClient = (await import('./prisma')).default;
+      const logs = await prismaClient.emailLog.findMany({
+        where,
+        include: { job: { include: { sender: true } } },
+        orderBy: { createdAt: 'desc' },
+        take: 100,
+      });
+
+      return logs.map(l => ({
+        id: l.id,
+        jobId: l.jobId,
+        userId,
+        recipient: l.recipient,
+        subject: l.subject,
+        body: l.job.body,
+        status: l.status,
+        sentAt: l.sentAt,
+        senderEmail: l.job.sender?.email || '',
+        createdAt: l.createdAt,
+      }));
+    } catch (fallbackErr) {
+      logger.error('PostgreSQL fallback search error:', fallbackErr);
+      return [];
+    }
   }
 }
