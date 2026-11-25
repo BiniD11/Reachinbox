@@ -1,13 +1,12 @@
 services:
   # ----------------------------------------------------
-  # Express.js + BullMQ Backend API
+  # Single Unified Web Service (Frontend + Backend + Workers)
   # ----------------------------------------------------
   - type: web
-    name: email-scheduler-backend
+    name: reachinbox-app
     env: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install --include=dev && npx prisma generate && npx prisma db push && npm run build
+    buildCommand: npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -18,8 +17,6 @@ services:
           property: connectionString
       - key: REDIS_URL
         sync: false # Paste your existing Render Redis Internal URL here
-      - key: FRONTEND_URL
-        value: https://email-scheduler-frontend-gk5l.onrender.com
       - key: JWT_SECRET
         generateValue: true
       - key: SESSION_SECRET
@@ -32,22 +29,6 @@ services:
         value: "5"
       - key: MIN_DELAY_BETWEEN_SENDS_MS
         value: "2000"
-
-  # ----------------------------------------------------
-  # Next.js 14 Frontend Dashboard
-  # ----------------------------------------------------
-  - type: web
-    name: email-scheduler-frontend
-    env: node
-    plan: free
-    rootDir: frontend
-    buildCommand: npm install --include=dev && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: NEXT_PUBLIC_API_URL
-        sync: false # Set to your actual Render backend URL (e.g. https://email-scheduler-backend-xxxx.onrender.com)
 
 # ----------------------------------------------------
 # Managed PostgreSQL Database

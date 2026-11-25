@@ -13,9 +13,10 @@ const router = Router();
 // Configure Google OAuth
 passport.use(new GoogleStrategy(
   {
-    clientID: config.google.clientId,
-    clientSecret: config.google.clientSecret,
-    callbackURL: config.google.callbackUrl,
+    clientID: config.google.clientId || 'missing_client_id',
+    clientSecret: config.google.clientSecret || 'missing_client_secret',
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || '/auth/google/callback',
+    proxy: true,
   },
   async (_accessToken, _refreshToken, profile, done) => {
     try {
@@ -46,11 +47,11 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 router.get('/google/callback',
-  passport.authenticate('google', { session: false, failureRedirect: `${config.frontendUrl}/login?error=auth_failed` }),
+  passport.authenticate('google', { session: false, failureRedirect: `${process.env.FRONTEND_URL || ''}/login?error=auth_failed` }),
   (req, res) => {
     const user = req.user as any;
     const token = jwt.sign({ id: user.id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn as any });
-    res.redirect(`${config.frontendUrl}/auth/callback?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL || ''}/auth/callback?token=${token}`);
   }
 );
 
@@ -97,9 +98,9 @@ router.get('/slack/callback', async (req, res) => {
   try {
     const { code, state } = req.query as { code: string; state: string };
     await handleSlackCallback(code, state);
-    res.redirect(`${config.frontendUrl}/dashboard?slack=connected`);
+    res.redirect(`${process.env.FRONTEND_URL || ''}/dashboard?slack=connected`);
   } catch (err: any) {
-    res.redirect(`${config.frontendUrl}/dashboard?slack=error&msg=${err.message}`);
+    res.redirect(`${process.env.FRONTEND_URL || ''}/dashboard?slack=error&msg=${err.message}`);
   }
 });
 

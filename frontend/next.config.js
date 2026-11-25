@@ -10,10 +10,31 @@ const nextConfig = {
     return config;
   },
   async rewrites() {
+    const backendUrl = (process.env.BACKEND_INTERNAL_URL || process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001').replace(/\/$/, '');
     return [
       {
-        source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/:path*`,
+        source: '/auth/:path*',
+        destination: `${backendUrl}/auth/:path*`,
+      },
+      {
+        source: '/emails/:path*',
+        destination: `${backendUrl}/emails/:path*`,
+      },
+      {
+        source: '/senders/:path*',
+        destination: `${backendUrl}/senders/:path*`,
+      },
+      {
+        source: '/admin/queues',
+        destination: `${backendUrl}/admin/queues`,
+      },
+      {
+        source: '/admin/queues/:path*',
+        destination: `${backendUrl}/admin/queues/:path*`,
+      },
+      {
+        source: '/health',
+        destination: `${backendUrl}/health`,
       },
     ];
   },

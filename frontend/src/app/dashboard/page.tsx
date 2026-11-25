@@ -81,7 +81,7 @@ function DashboardContent() {
           </div>
           <div className="flex items-center gap-3">
             <a
-              href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/queues`}
+              href={`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '')}/admin/queues`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-dark-800 hover:bg-dark-850 border border-slate-700/60 text-slate-300 hover:text-white font-medium py-2.5 px-4 rounded-xl text-sm transition-colors shadow-sm"

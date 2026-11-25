@@ -12,13 +12,15 @@ export default function LoginPage() {
   }, [router]);
   
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/auth/google`;
+    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+    window.location.href = `${apiUrl}/auth/google`;
   };
 
   const handleDemoLogin = async () => {
     setDemoLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/auth/demo`, {
+      const apiUrl = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+      const res = await fetch(`${apiUrl}/auth/demo`, {
         method: 'POST',
       });
       const data = await res.json();

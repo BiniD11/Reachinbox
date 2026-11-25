@@ -43,7 +43,7 @@ export function Header({ user, onLogout }: HeaderProps) {
         <div className="flex items-center gap-3">
           {/* Bull Board Link */}
           <a
-            href={`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001').replace(/\/$/, '')}/admin/queues`}
+            href={`${(process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '')}/admin/queues`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 hover:text-brand-400 bg-dark-900/50 border border-slate-700/50 py-1.5 px-3 rounded-lg transition-colors"

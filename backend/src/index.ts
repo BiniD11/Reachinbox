@@ -17,6 +17,7 @@ import emailRoutes from './routes/emails';
 import senderRoutes from './routes/senders';
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Middleware
 app.use(cors({
