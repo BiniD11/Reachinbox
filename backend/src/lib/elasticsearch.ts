@@ -7,6 +7,11 @@ export const esClient = new Client({
 });
 
 export async function initElasticsearch() {
+  if (config.nodeEnv === 'production' && !process.env.ELASTICSEARCH_NODE) {
+    logger.info('ELASTICSEARCH_NODE not configured in production — using PostgreSQL search fallback');
+    return;
+  }
+
   try {
     const indexName = config.elasticsearch.index;
     
@@ -58,6 +63,7 @@ export async function indexEmail(doc: {
   senderEmail: string;
   createdAt: Date;
 }) {
+  if (config.nodeEnv === 'production' && !process.env.ELASTICSEARCH_NODE) return;
   try {
     await esClient.index({
       index: config.elasticsearch.index,
@@ -73,6 +79,7 @@ export async function updateEmailIndex(id: string, doc: Partial<{
   status: string;
   sentAt: Date;
 }>) {
+  if (config.nodeEnv === 'production' && !process.env.ELASTICSEARCH_NODE) return;
   try {
     await esClient.update({
       index: config.elasticsearch.index,
@@ -86,6 +93,9 @@ export async function updateEmailIndex(id: string, doc: Partial<{
 
 export async function searchEmails(userId: string, query: string, status?: string) {
   try {
+    if (config.nodeEnv === 'production' && !process.env.ELASTICSEARCH_NODE) {
+      throw new Error('Elasticsearch not configured');
+    }
     const must: any[] = [
       { term: { userId } }
     ];

@@ -1,28 +1,50 @@
-import IORedis from 'ioredis';
+import IORedis, { RedisOptions } from 'ioredis';
 import { config } from '../config';
 import logger from './logger';
 
-const redisConfig = config.redis.url
-  ? config.redis.url
-  : {
-      host: config.redis.host,
-      port: config.redis.port,
-      password: config.redis.password,
-      maxRetriesPerRequest: null,
-      enableReadyCheck: false,
-      retryStrategy: (times: number) => {
-        const delay = Math.min(times * 50, 2000);
-        return delay;
-      },
-    };
+const isProductionMissingRedis =
+  config.nodeEnv === 'production' && !config.redis.url && !process.env.REDIS_HOST;
 
-export const redis = typeof redisConfig === 'string'
-  ? new IORedis(redisConfig, { maxRetriesPerRequest: null, enableReadyCheck: false })
-  : new IORedis(redisConfig);
+if (isProductionMissingRedis) {
+  logger.error(
+    'REDIS_URL is not set! Please set REDIS_URL in your Render Environment Variables.'
+  );
+}
 
-export const redisForBullMQ = typeof redisConfig === 'string'
-  ? new IORedis(redisConfig, { maxRetriesPerRequest: null, enableReadyCheck: false })
-  : new IORedis(redisConfig);
+const commonOptions: RedisOptions = {
+  maxRetriesPerRequest: null,
+  enableReadyCheck: false,
+  retryStrategy: (times: number) => {
+    if (isProductionMissingRedis) {
+      return Math.min(times * 5000, 60000); // avoid log spam if env var is missing
+    }
+    return Math.min(times * 50, 2000);
+  },
+};
+
+function createRedisClient(): IORedis {
+  if (config.redis.url) {
+    const useTls = config.redis.url.startsWith('rediss://');
+    return new IORedis(config.redis.url, {
+      ...commonOptions,
+      ...(useTls ? { tls: { rejectUnauthorized: false } } : {}),
+    });
+  }
+
+  return new IORedis({
+    host: config.redis.host,
+    port: config.redis.port,
+    password: config.redis.password,
+    ...commonOptions,
+  });
+}
+
+export const redis = createRedisClient();
+export const redisForBullMQ = createRedisClient();
 
 redis.on('connect', () => logger.info('Redis connected'));
-redis.on('error', (err) => logger.error('Redis error:', err));
+redis.on('error', (err) => {
+  if (!isProductionMissingRedis) {
+    logger.error('Redis error:', err);
+  }
+});
