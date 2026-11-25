@@ -1,14 +1,5 @@
 services:
   # ----------------------------------------------------
-  # Redis Key-Value Cache for BullMQ Queues & Limiting
-  # ----------------------------------------------------
-  - type: redis
-    name: email-scheduler-redis
-    ipAllowList: [] # internal services only
-    plan: free
-    maxmemoryPolicy: noeviction
-
-  # ----------------------------------------------------
   # Express.js + BullMQ Backend API
   # ----------------------------------------------------
   - type: web
@@ -26,10 +17,7 @@ services:
           name: email-scheduler-db
           property: connectionString
       - key: REDIS_URL
-        fromService:
-          type: redis
-          name: email-scheduler-redis
-          property: connectionString
+        sync: false # Paste your existing Render Redis Internal URL here
       - key: FRONTEND_URL
         value: https://email-scheduler-frontend-gk5l.onrender.com
       - key: JWT_SECRET
