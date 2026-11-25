@@ -1,0 +1,51 @@
+email,first_name,last_name,company,title
+john.doe@acme.corp,John,Doe,Acme Corporation,VP of Sales
+jane.smith@techstart.io,Jane,Smith,TechStart,Founder & CEO
+alex.turner@reachinbox.test,Alex,Turner,ReachInbox,Lead Engineer
+sarah.connor@cyberdyne.ai,Sarah,Connor,Cyberdyne Systems,Head of Security
+michael.scott@dundermifflin.com,Michael,Scott,Dunder Mifflin,Regional Manager
+dwight.schrute@schrutefarms.com,Dwight,Schrute,Schrute Farms,Assistant Regional Manager
+pam.beesly@dundermifflin.com,Pam,Beesly,Dunder Mifflin,Office Administrator
+jim.halpert@athlead.sports,Jim,Halpert,Athlead,Co-Founder
+bruce.wayne@wayneenterprises.com,Bruce,Wayne,Wayne Enterprises,CEO
+clark.kent@dailyplanet.news,Clark,Kent,Daily Planet,Senior Reporter
+diana.prince@themiscira.museum,Diana,Prince,Antiquities Museum,Curator
+tony.stark@starkindustries.com,Tony,Stark,Stark Industries,Chief Architect
+pepper.potts@starkindustries.com,Pepper,Potts,Stark Industries,CEO
+peter.parker@dailybugle.com,Peter,Parker,Daily Bugle,Freelance Photographer
+natasha.romanoff@shield.agency,Natasha,Romanoff,S.H.I.E.L.D.,Special Operations
+steve.rogers@avengers.org,Steve,Rogers,Avengers Initiative,Team Lead
+bruce.banner@gamma-labs.edu,Bruce,Banner,Gamma Research Lab,Lead Scientist
+stephen.strange@sanctum.care,Stephen,Strange,Metro General Hospital,Chief Neurosurgeon
+wanda.maximoff@westview.tech,Wanda,Maximoff,Westview Solutions,Creative Director
+thor.odinson@asgardian.energy,Thor,Odinson,Asgard Green Energy,Executive Director
+loki.laufeyson@tva.timeline,Loki,Laufeyson,Time Variance Corp,Analyst
+sam.wilson@airforce.mil,Sam,Wilson,Aviation Logistics,Operations Director
+bucky.barnes@brooklyn.co,Bucky,Barnes,Brooklyn Iron Works,Advisor
+nick.fury@shield.agency,Nick,Fury,S.H.I.E.L.D.,Director
+maria.hill@shield.agency,Maria,Hill,S.H.I.E.L.D.,Deputy Director
+carol.danvers@starforce.space,Carol,Danvers,Starforce Logistics,Pilot Lead
+matt.murdock@nelsonmurdock.law,Matt,Murdock,Nelson & Murdock Law,Partner
+foggy.nelson@nelsonmurdock.law,Foggy,Nelson,Nelson & Murdock Law,Managing Partner
+karen.page@bulletin.press,Karen,Page,New York Bulletin,Investigative Journalist
+frank.castle@punisher.tactical,Frank,Castle,Special Tactical Group,Tactical Advisor
+jessica.jones@aliainvestigations.ny,Jessica,Jones,Alias Investigations,Lead Investigator
+luke.cage@harlem.paradise,Luke,Cage,Harlem Community Foundation,Director
+danny.rand@randcorp.global,Danny,Rand,Rand Corporation,Chairman
+colleen.wing@chikara.dojo,Colleen,Wing,Chikara Training,Head Instructor
+barry.allen@ccpd.forensics.gov,Barry,Allen,Central City PD,Forensic Chemist
+iris.west@citizen.news,Iris,West,Central City Citizen,Editor in Chief
+cisco.ramon@star-labs.tech,Cisco,Ramon,S.T.A.R. Labs,Chief Technology Officer
+caitlin.snow@star-labs.tech,Caitlin,Snow,S.T.A.R. Labs,Bio-Medical Lead
+oliver.queen@queencapital.org,Oliver,Queen,Queen Capital,Managing Director
+felicity.smoak@smoaktech.io,Felicity,Smoak,Smoak Technologies,Founder
+john.diggle@argus.agency,John,Diggle,A.R.G.U.S.,Security Director
+kara.danvers@catco.media,Kara,Danvers,CatCo Media,Senior Editor
+lena.luthor@l-corp.global,Lena,Luthor,L-Corp,Chief Executive Officer
+james.olsen@catco.media,James,Olsen,CatCo Media,Chief Operating Officer
+hal.jordan@ferrisaircraft.com,Hal,Jordan,Ferris Aircraft,Chief Test Pilot
+arthur.curry@atlantis.marine,Arthur,Curry,Amnesty Marine Conservation,Chairman
+mera.xebel@oceanic.env,Mera,Xebel,Oceanic Alliance,Policy Director
+victor.stone@star-labs.tech,Victor,Stone,Cybernetic Systems,Systems Architect
+harleen.quinzel@arkham.psych,Harleen,Quinzel,Arkham Psychiatric,Research Fellow
+selina.kyle@gotham-antiques.co,Selina,Kyle,Gotham Collectibles,Managing Appraiser
