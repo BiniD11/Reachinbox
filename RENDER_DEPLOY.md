@@ -46,7 +46,7 @@ If you prefer to configure each service manually in the Render dashboard:
 - Click **New +** ➔ **PostgreSQL**.
 - Name: `email-scheduler-db`
 - Database: `email_scheduler`
-- User: `postgres`
+- User: `reachinbox_user` (Render reserves 'postgres', so use a custom name)
 - Plan: **Free**
 - Copy the **Internal Database URL** once created.
 

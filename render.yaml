@@ -4,7 +4,7 @@ services:
   # ----------------------------------------------------
   - type: redis
     name: email-scheduler-redis
-    ipAllowList: [] # only allow internal services
+    ipAllowList: [] # internal services only
     plan: free
     maxmemoryPolicy: noeviction
 
@@ -31,22 +31,19 @@ services:
           name: email-scheduler-redis
           property: connectionString
       - key: FRONTEND_URL
-        fromService:
-          type: web
-          name: email-scheduler-frontend
-          property: url
+        value: https://email-scheduler-frontend.onrender.com
       - key: JWT_SECRET
         generateValue: true
       - key: SESSION_SECRET
         generateValue: true
       - key: MAX_EMAILS_PER_HOUR
-        value: 200
+        value: "200"
       - key: MAX_EMAILS_PER_HOUR_PER_SENDER
-        value: 100
+        value: "100"
       - key: WORKER_CONCURRENCY
-        value: 5
+        value: "5"
       - key: MIN_DELAY_BETWEEN_SENDS_MS
-        value: 2000
+        value: "2000"
 
   # ----------------------------------------------------
   # Next.js 14 Frontend Dashboard
@@ -62,10 +59,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: email-scheduler-backend
-          property: url
+        value: https://email-scheduler-backend.onrender.com
 
 # ----------------------------------------------------
 # Managed PostgreSQL Database
@@ -73,5 +67,5 @@ services:
 databases:
   - name: email-scheduler-db
     databaseName: email_scheduler
-    user: postgres
+    user: reachinbox_user
     plan: free
