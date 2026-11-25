@@ -31,7 +31,7 @@ services:
           name: email-scheduler-redis
           property: connectionString
       - key: FRONTEND_URL
-        value: https://email-scheduler-frontend.onrender.com
+        value: https://email-scheduler-frontend-gk5l.onrender.com
       - key: JWT_SECRET
         generateValue: true
       - key: SESSION_SECRET
@@ -59,7 +59,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: https://email-scheduler-backend.onrender.com
+        sync: false # Set to your actual Render backend URL (e.g. https://email-scheduler-backend-xxxx.onrender.com)
 
 # ----------------------------------------------------
 # Managed PostgreSQL Database
